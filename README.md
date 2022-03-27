@@ -80,6 +80,8 @@ Some retailers you may wish to look at for parts, not in any particular order ar
 
 ![Labeled rendering of machine](images/parts_labels_1.jpg)
 
+![Labeled rendering of drag arms](images/drag_arms/jpg)
+
 All of the Lego pieces should be documented in the file: `/bricklink/parts_list.csv`.
 
 This should be uploadable to http://bricklink.com and split into the necessary purchases. For nearly all the pieces, the color does not matter. Buy whatever color is cheapest.
@@ -132,12 +134,12 @@ If you use a different webcam, you'll need to design your own mount for it. Plea
 
 ### Close Focus Lens
 
-Webcams normally can't focus as closely as we need for this machine. For this project we need approximately 6 diopters of close focus power.
+Webcams normally can't focus as closely as we need for this machine. For this project we need approximately 6 diopters of close focus adjustment.
 
 I used a 55mm Tiffen close focus lens kit, but it looks like the Vivitar version is cheaper:
 https://www.bhphotovideo.com/c/product/1278181-REG/vivitar_viv_cl_55_55mm_close_up_filter.html
 
-It comes with a +4 and a +2 that can be stacked. The Lego build provided includes a frame that will hold the 49mm lens securely in front of the webcam.
+It comes with a +4 and a +2 that can be stacked. The Lego design includes a frame that will hold the 55mm lenses securely in front of the webcam.
 
 Image quality is not a major concern with this project, so the cheaper lenses will almost certainly work just fine.
 
@@ -271,6 +273,8 @@ https://learn.sparkfun.com/tutorials/qrd1114-optical-detector-hookup-guide
 
 IMPORTANT NOTE: Sparkfun's tutorial shows a 10K pull-up resistor from the Arduino's 5V to the collector of the phototransistor. This is not necessary because we use the software-enabled pull-up resistors. There should be no connection of any sort from 5V to the collector.
 
+![Correct circuit diagram for proximity sensor](images/sensor_circuit.jpg)
+
 If you chose to use the Arduino Sensor Shield, the instructions will diverge here. You'll do something very similar, but you'll be hooking up the wires to female header instead of male header.
 
 **Instructions for wiring the sensors with a breadboard**
@@ -278,6 +282,12 @@ If you chose to use the Arduino Sensor Shield, the instructions will diverge her
 _Side note: I am a total hack at wiring things up. My techniques are probably not to be emulated, but they did work for me._
 
 _Disclaimer: In the pictures below, eagle-eyed readers will see that I have my 5V and ground wires reversed from these instructions. It's fine, because I'm consistent, but it was poor technique. I recommend you do as I say, not as I do._
+
+![What the connections to the sensor look like](images/sensor_wiring.jpg)
+_Wired up sensor_
+
+![Male header for sensor](images/male_header.jpg)
+_Male header for sensor_
 
 _Step 1:_ Cut a 5-pin piece of male header.
 
@@ -309,6 +319,9 @@ _Step 7:_ Run jumper wires from the 5V pin of the Arduino to the + rail of the b
 
 _Step 8:_ Test the LEDs. Plug in the arduino using just the USB cable. We aren't running a program on it  yet, we just want to power up the LEDs. You can't see the IR LEDs with your eyes, but most digital cameras can. Use your cellphone camera or a webcam to look at the sensor head-on. You should see a bright purple dot when it's powered on.
 
+![Testing setup for sensor](images/sensor_testing.jpg)
+_Sensor wired up to pin 7 of the Arduino_
+
 _Step 9:_ Run a jumper from digital input pin 7 on the Arduino to a pin in the same column of the breadboard as the male header (see picture). Run the program `sensor_test.bat`. You should see the result change as the sensor is covered and uncovered.
 
 Repeat steps 1-9 four more times so that you have 5 sensors in total.
@@ -325,7 +338,7 @@ Once the machine is assembled, but before you attach the motors, make sure that 
 
 The v-groove pulleys on the primary hopper drag arm need to have rubber bands on them.
 
-INSERT IMAGE HERE
+![Rubber bands on primary drag arm](images/rubber_bands.jpg)
 
 ### Attaching the Sensors
 
@@ -452,6 +465,8 @@ Go to: https://www.onlinemictest.com/webcam-test/ to view your webcam.
 ## Calibrate the camera's perspective
 
 Note: If your computer has more than one webcam (common with laptops that have built in webcams) you'll need to specify which webcam using the `camera_id` parameter in `config.json`.
+
+Note: The camera mount is flexibly hinged in its connection to the machine. Every time you move the machine, the camera's perspective changes, and you will need to repeat the perspective calibration process.
 
 Put a test card centered as best you can on the sorting tray.
 
