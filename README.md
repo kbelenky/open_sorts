@@ -80,7 +80,7 @@ Some retailers you may wish to look at for parts, not in any particular order ar
 
 ![Labeled rendering of machine](images/parts_labels_1.jpg)
 
-![Labeled rendering of drag arms](images/drag_arms/jpg)
+![Labeled rendering of drag arms](images/drag_arms.jpg)
 
 All of the Lego pieces should be documented in the file: `/bricklink/parts_list.csv`.
 
@@ -223,6 +223,13 @@ Option 2 (What I did, because I had the stuff on hand):
 
 # Assembly
 
+## Basic Configuration
+
+There are two computer-specific things you need to update in `config.json`
+
+*   `camera_id`: If your computer has no other webcam, this _should_ be 0. However, most laptops have a built-in webcam and you'll need to tinker a little bit to figure out which webcam is the one for the card recognizer.
+*   `serial_port`: This is the serial port that the computer uses to talk to the Arduino. It will vary for every computer. There's a decent tutorial of how to find your Arduino's serial port here: https://www.mathworks.com/help/supportpkg/arduinoio/ug/find-arduino-port-on-windows-mac-and-linux.html
+
 ## Hooking up the motors
 
 Before we do anything else, let's get the Arduino, motor shield and motors hooked up.
@@ -348,13 +355,27 @@ https://www.bricklink.com/v2/catalog/catalogitem.page?P=85943
 
 I found that wrapping the sensor with a small piece of thin foam helped cradle them even better.
 
-INSERT IMAGE HERE
+![Sensor in sensor mount](images/sensor_mount1.jpg)
+
+![Sensor in sensor mount](images/sensor_mount2.jpg)
 
 These four sensors will be located in the Primary Hopper, Secondary Hopper, and 2x in the Sorting Tray.
 
 The fifth sensor is mounted horizontally below the sorting tray. It detects when the wheel returns to the neutral, fully retracted position.
 
-INSERT IMAGE HERE
+[!Return sensor seen from the side](images/return_sensor_side.jpg)
+
+_Return sensor as seen from the side, with cable routing below._
+
+Note: I used a slightly different sensor mounting for the tray sensors, so don't get thrown off by the small screws that you can see.
+
+![Return sensor with wheel in the up position](images/return_sensor_up.jpg)
+
+_Return sensor with wheel in the up position_
+
+![Return sensor with wheel in the down position](images/return_sensor_down.jpg)
+
+_Return sensor with wheel in the down position_
 
 ### Mounting the close-focus lens
 
