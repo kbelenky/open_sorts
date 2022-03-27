@@ -78,6 +78,8 @@ Some retailers you may wish to look at for parts, not in any particular order ar
 
 ## Lego
 
+![Labeled rendering of machine](images/parts_labels_1.jpg)
+
 All of the Lego pieces should be documented in the file: `/bricklink/parts_list.csv`.
 
 This should be uploadable to http://bricklink.com and split into the necessary purchases. For nearly all the pieces, the color does not matter. Buy whatever color is cheapest.
