@@ -48,6 +48,10 @@ Open Sorts is distributed in the hope that it will be useful, but WITHOUT ANY WA
 
 You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 
+### Acknowledgements
+
+This work would not have been possible without the data and images provided by Scryfall.
+
 # Required Skills
 
 To build this machine and get it working, you'll need the following skills:
@@ -363,7 +367,7 @@ These four sensors will be located in the Primary Hopper, Secondary Hopper, and 
 
 The fifth sensor is mounted horizontally below the sorting tray. It detects when the wheel returns to the neutral, fully retracted position.
 
-[!Return sensor seen from the side](images/return_sensor_side.jpg)
+![Return sensor seen from the side](images/return_sensor_side.jpg)
 
 _Return sensor as seen from the side, with cable routing below._
 
@@ -383,7 +387,9 @@ The camera requires +6 diopters of focus correction. The lens kit should have a 
 
 There is a space where the lenses are held firmly in place:
 
-INSERT IMAGE HERE
+![Lens mount](images/lens_mount.jpg)
+
+_Close focus lens mounted in its position. Note how it's being held down by the 2-long thin liftarms_.
 
 ### Mounting the camera
 
@@ -391,7 +397,9 @@ There is a green light on the front of the camera that turns on when the camera 
 
 Mount the camera as shown in the picture:
 
-INSERT IMAGE HERE
+![Camera mount](images/camera_mount.jpg)
+
+_Camera mounted in its bracket. Note how the drak gray axles fit into the groove between the camera's body and clip. The light gray bushings stabilize the camera side-to-side._
 
 ### Setting up the secondary drag arm.
 
@@ -405,9 +413,13 @@ On each side, run a bolt from the eye-post of the upright liftarm to the eye-pos
 
 Adjust the nuts so that there is a narrow gap between the drag wheels and the motorized wheels.
 
-INSERT IMAGE HERE
-
 Once you get it right, counter-rotate the nuts against each other to squeeze the eye-posts and lock things in place.
+
+![Drag arm gap](images/drag_arm_position1.jpg)
+
+_Secondary drag arm set to correct height. Note how there is a small gap between the upper, immobilized wheels, and the lower drive wheels. The Lego threaded axle and nuts that adjust the height are in the upper-right of the image. This is where you'll use a bolt instead of the rare Lego pieces._
+
+![Drag arm gap from a different angle](images/drag_arm_position2.jpg)
 
 ### Hook up the Arduino
 
