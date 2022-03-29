@@ -476,13 +476,13 @@ INSERT IMAGE HERE
 1.  One or more cards should automatically feed from the primary hopper into the secondary hopper.
 1.  Use the controls to feed cards into the sorting tray and then send them right and left.
 1.  Things to look for:
-  1.  Do the cards feed at all?
-  1.  Does the secondary hopper feed cards one at a time? If it feeds more than one, then the secondary drag arm needs to be lowered a little, by adjusting the nuts.
-  1.  Do the cards feed smoothly out of the secondary hopper? If they seem to stall out, then the secondary drag arm is too low and needs to be lifted a little.
-  1.  Do the cards drop cleanly when sent from the sorting tray into the baskets?
-  1.  Do the wheels of the sorting tray fully retract when not in use? If not, then the return motor is not set up right.
+    1.  Do the cards feed at all?
+    1.  Does the secondary hopper feed cards one at a time? If it feeds more than one, then the secondary drag arm needs to be lowered a little, by adjusting the nuts.
+    1.  Do the cards feed smoothly out of the secondary hopper? If they seem to stall out, then the secondary drag arm is too low and needs to be lifted a little.
+    1.  Do the cards drop cleanly when sent from the sorting tray into the baskets?
+    1.  Do the wheels of the sorting tray fully retract when not in use? If not, then the return motor is not set up right.
 1.  Things that are not a problem.
-  1.  If the primary hopper feeds more than one card at a time into the secondary hopper. Don't worry about it. It's the secondary hopper's job to ensure that only one card at a time is fed.
+    1.  If the primary hopper feeds more than one card at a time into the secondary hopper. Don't worry about it. It's the secondary hopper's job to ensure that only one card at a time is fed.
 
 ## Test that the camera works at all
 

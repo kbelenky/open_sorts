@@ -1,0 +1,9 @@
+ipywidgets
+ipympl
+jupyterlab
+numpy
+opencv-python
+matplotlib
+tensorflow
+tensorflow-addons
+serial

@@ -1,0 +1,49 @@
+{
+    "camera_keypoints": [
+        [
+            370,
+            90
+        ],
+        [
+            1188,
+            60
+        ],
+        [
+            360,
+            654
+        ],
+        [
+            1185,
+            682
+        ]
+    ],
+    "serial_port": "COM3",
+    "camera_id": 0,
+    "device_config": {
+	"primary_hopper": {
+	    "motor": 1,
+	    "sensor": 7,
+	    "direction": 1,
+	    "flush_duration": 1000,
+	    "runout_duration": 230,
+	    "primary_speed": 80,
+	    "secondary_speed": 60
+	},
+	"secondary_hopper": {
+	    "motor": 4,
+	    "sensor": 6,
+	    "direction": 1,
+	    "feed_speed": 80,
+	    "pullback_speed": 40,
+	    "pullback_duration": 600
+	},
+	"tray": {
+	    "motor": 3,
+	    "direction": 1,
+	    "return_sensor": 3,
+	    "sensor1": 5,
+	    "sensor2": 4,
+	    "speed": 120
+	}
+    }
+}
