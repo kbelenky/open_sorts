@@ -481,8 +481,11 @@ INSERT IMAGE HERE
     1.  Do the cards feed smoothly out of the secondary hopper? If they seem to stall out, then the secondary drag arm is too low and needs to be lifted a little.
     1.  Do the cards drop cleanly when sent from the sorting tray into the baskets?
     1.  Do the wheels of the sorting tray fully retract when not in use? If not, then the return motor is not set up right.
+    1.  If the sorting tray wheel regularly takes more than one revolution to send a card into a basket, it is set too fast. Reduce its speed in `config.json`.
 1.  Things that are not a problem.
     1.  If the primary hopper feeds more than one card at a time into the secondary hopper. Don't worry about it. It's the secondary hopper's job to ensure that only one card at a time is fed.
+    1.  If you tell it to feed the next card and there's already a card in the tray, nothing will happen.
+    1.  The secondary hopper motor runs in reverse for a moment after a card is fed to the tray. This is normal.
 
 ## Test that the camera works at all
 
