@@ -1,3 +1,19 @@
+# Copyright 2022 Kennet Belenky
+#
+# This file is part of OpenSorts.
+#
+# OpenSorts is free software: you can redistribute it and/or modify it under the
+# terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version.
+#
+# OpenSorts is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# OpenSorts. If not, see <https://www.gnu.org/licenses/>.
+
 import json
 import re
 import serial
@@ -27,6 +43,13 @@ def send_command(serial_port, command):
         tray1: int
         tray2: int
 
+    # The device handles commands synchronously. Don't send a new command until
+    # the device has responded to the last one.
+    # The device may send 'done', 'empty', 'not_empty', or 'query: ...' as
+    # responses.
+    #
+    # Anything else is a log statement that may be informative, but can also
+    # be safely ignored.
     log = []
     serial_port.write((command + '\n').encode('utf-8'))
     while True:
@@ -48,6 +71,7 @@ def send_command(serial_port, command):
             log.append(decoded_line)
 
 
+# Converts a nested set of simple namespace JSON back into nested dictionaries.
 def to_dictionary(obj):
     if hasattr(obj, "__dict__"):
         return {k: to_dictionary(v) for k, v in obj.__dict__.items()}
@@ -68,3 +92,19 @@ def open_device(config):
         print(entry)
     print(result)
     return serial_port
+
+
+def load_catalog():
+    # The 'catalog' is just a flat array of card information.
+    # cards_by_id is a dictionary mapping cards by their id.
+    # I use the format '{scryfall id}_{face_index}' for all cards.
+    # Single-faced cards have only one face_index (0).
+    with open("card_catalog.json", "r", encoding="utf-8") as json_file:
+        catalog = json.load(json_file)
+    cards_by_id = dict()
+    for card in catalog:
+        id = card['id']
+        face_index = card['face_index']
+        card_id = f'{id}_{face_index}'
+        cards_by_id[card_id] = card
+    return catalog, cards_by_id
