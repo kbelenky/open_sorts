@@ -576,3 +576,17 @@ Start with a small test batch (5-10 cards) to make sure it's reasonable.
 # Celebrate
 
 If you've made it this far, please share your experience at https://reddit.com/r/open_sorts
+
+# Future roadmap
+
+Here's a list of ideas, in no particular order, that would be great improvements:
+
+*   Auto-align the camera on every card. The cards never land in exactly the right place. The recognizer is robust to movement, but it works better when the cards are well registered. Detect the corner keypoints for the perspect transform on every card.
+*   Rework the camera mount so that it's more rigid and doesn't shift when the machine is moved.
+*   Figure out if anything can be done to reduce the latency of the camera.
+*   Replace the Arduino + Computer combo with a Raspberry Pi Zero.
+*   Replace the chassis with a cheaper material (possibly laser cut acrylic or something 3d printed).
+*   Create a merge-sorting machine, that merges two hoppers full of sorted cards into a single output basket.
+*   Create a taller version that supports more cards in the input and output baskets.
+*   Improve the UI.
+*   Improve the documentation.
