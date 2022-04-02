@@ -227,12 +227,38 @@ Option 2 (What I did, because I had the stuff on hand):
 
 # Assembly
 
+## Download the github repository
+
+All the code and documentation you need _should_ be available in the git repository here:
+
+https://github.com/kbelenky/open_sorts
+
 ## Basic Configuration
 
 There are two computer-specific things you need to update in `config.json`
 
 *   `camera_id`: If your computer has no other webcam, this _should_ be 0. However, most laptops have a built-in webcam and you'll need to tinker a little bit to figure out which webcam is the one for the card recognizer.
 *   `serial_port`: This is the serial port that the computer uses to talk to the Arduino. It will vary for every computer. There's a decent tutorial of how to find your Arduino's serial port here: https://www.mathworks.com/help/supportpkg/arduinoio/ug/find-arduino-port-on-windows-mac-and-linux.html
+
+Additionally, when using the Arduino CLI (or Arduino IDE), you'll need to specify the correct serial port.
+
+## Set up the Arduino software.
+
+I used the [Arduino CLI](https://www.arduino.cc/pro/cli). Downloads are [available here](https://github.com/arduino/arduino-cli/releases).
+
+You can also use the Arduino IDE. It'll work either way.
+
+You'll need to install the following libraries:
+
+```
+"Adafruit Motor Shield V2 Library"
+AccelStepper
+ArduinoJson
+```
+
+Note: I'm not actually sure you need the AccelStepper library, but I have it in my notes that I installed it.
+
+Once the Arduino software is set up, load up the sketch `card_sorter.ino`, compile it and download it to your board.
 
 ## Hooking up the motors
 
@@ -467,11 +493,20 @@ INSERT IMAGE HERE
 1.  Things to look for: Do the correct motors run at the correct time? Is the motor turning in the right direction?
 1.  Adjust the values in `config.json` as needed. The `motor` keys let you select the motor output on the motor shield (values can be 1-4). The `direction` keys select the direction for each motor (values 0-1). If a motor runs in the wrong direction, flip the value.
 
+## Loading the hopper
+
+1.  Remove the Hopper Weight if it is in the hopper.
+1.  Place a stack of cards face-up in the hopper, with the card backs facing down. The recognizer should work with the cards in either orientation so long as the face is up (for DFCs, the recognizer will recognize the back face, and sort the card according to the properties of the back face).
+1.  Place the Hopper Weight on top of the stack of cards with the smooth side down.
+1.  Lift the primary hopper arm, just for a moment, so that the cards can settle onto the drive wheel. (INSERT VIDEO LINK)
+
+When reloading the hopper from the sorting baskets, always put the contents of the left basket into the hopper first, followed by the right basket. This is a critical step in the sorting process.
+
 ## Test the card feeding operations.
 
 1.  Load a stack of cards (ones you don't mind getting damaged if it comes to it) into the primary hopper.
 1.  Place the hopper weight on top of the cards, smooth-side facing down.
-1.  Lift the drag arm of the primary hopper briefly to allow the cards to settle into place (INSERT VIDEO LINK)
+1.  Lift the drag arm of the primary hopper briefly to allow the cards to settle into place 
 1.  Run `command_test.py`
 1.  One or more cards should automatically feed from the primary hopper into the secondary hopper.
 1.  Use the controls to feed cards into the sorting tray and then send them right and left.
@@ -537,3 +572,7 @@ At this point, everything _should_ be set up and ready to go.
 Run `sorter.py` from the command line and follow the instructions.
 
 Start with a small test batch (5-10 cards) to make sure it's reasonable.
+
+# Celebrate
+
+If you've made it this far, please share your experience at https://reddit.com/r/open_sorts
