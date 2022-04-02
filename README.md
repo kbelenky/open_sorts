@@ -514,7 +514,9 @@ At the very bottom, you'll see two images side by side. One image shows what the
 
 It should look like this.
 
-INSERT IMAGE HERE
+![Camera alignment UI](images/camera_align.png)
+
+Click the "Save" button to save the keypoints to the `config.json` file.
 
 ## Test the recognizer
 

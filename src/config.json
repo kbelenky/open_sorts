@@ -1,49 +1,49 @@
 {
+    "camera_id": 0,
     "camera_keypoints": [
         [
             370,
-            90
+            80
         ],
         [
             1188,
-            60
+            38
         ],
         [
-            360,
-            654
+            378,
+            645
         ],
         [
-            1185,
-            682
+            1200,
+            660
         ]
     ],
-    "serial_port": "COM3",
-    "camera_id": 0,
     "device_config": {
-	"primary_hopper": {
-	    "motor": 1,
-	    "sensor": 7,
-	    "direction": 1,
-	    "flush_duration": 1000,
-	    "runout_duration": 230,
-	    "primary_speed": 80,
-	    "secondary_speed": 60
-	},
-	"secondary_hopper": {
-	    "motor": 4,
-	    "sensor": 6,
-	    "direction": 1,
-	    "feed_speed": 80,
-	    "pullback_speed": 40,
-	    "pullback_duration": 600
-	},
-	"tray": {
-	    "motor": 3,
-	    "direction": 1,
-	    "return_sensor": 3,
-	    "sensor1": 5,
-	    "sensor2": 4,
-	    "speed": 90
-	}
-    }
+        "primary_hopper": {
+            "direction": 1,
+            "flush_duration": 1000,
+            "motor": 1,
+            "primary_speed": 80,
+            "runout_duration": 230,
+            "secondary_speed": 60,
+            "sensor": 7
+        },
+        "secondary_hopper": {
+            "direction": 1,
+            "feed_speed": 80,
+            "motor": 4,
+            "pullback_duration": 600,
+            "pullback_speed": 40,
+            "sensor": 6
+        },
+        "tray": {
+            "direction": 1,
+            "motor": 3,
+            "return_sensor": 3,
+            "sensor1": 5,
+            "sensor2": 4,
+            "speed": 90
+        }
+    },
+    "serial_port": "COM3"
 }

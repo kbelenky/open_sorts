@@ -85,6 +85,13 @@ class Recognizer:
         small_image = tf.image.resize(large_image,
                                       self.image_dimensions,
                                       antialias=True)
+        # Recognize with the card upright and flipped 180.
+        # Use the one with the smaller distance.
         with prof_timer.PerfTimer('embedding'):
-            card_id, distance = self.recognize_by_embedding(small_image)
+            upright = (self.recognize_by_embedding(small_image))
+            inverted = (self.recognize_by_embedding(
+                tf.image.rot90(small_image, k=2)))
+
+        orientation_index = np.argmin([upright[1], inverted[1]])
+        card_id, distance = (upright, inverted)[orientation_index]
         return card_id, distance
