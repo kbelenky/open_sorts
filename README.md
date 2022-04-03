@@ -510,11 +510,7 @@ I have found that my overhead lights reflect off the back surface of the close-f
 1.  Place the Hopper Weight on top of the stack of cards with the smooth side down.
 1.  Lift the primary hopper arm, just for a moment, so that the cards can settle onto the drive wheel.
 
-<figure class="video_container">
-  <video controls="true" allowfullscreen="true" poster="images/hopper_reload.jpg">
-    <source src="images/hopper_reload.mp4" type="video/mp4">
-  </video>
-</figure>
+<a href="images/hopper_reload.mp4><img src="images/hopper_reload.jpg"></a>
 
 When reloading the hopper from the sorting baskets, always put the contents of the left basket into the hopper first, followed by the right basket. This is a critical step in the sorting process.
 
@@ -561,7 +557,7 @@ From the command line, run `jupyter-lab align_camera.ipynb`.
 
 Click the play button on the notebook.
 
-At the very bottom, you'll see two images side by side. One image shows what the camera sees, with a green quadrilateral. The other image shows just the contents of the green quadrilateral stretched and cropped into a card-shaped rectangle. Adjust the 8 sliders (top-left corner x&y, top-right corner x&y, etc...) until the the card (including black/white border) takes up exactly the cropped image.
+At the very bottom, you'll see two images side by side. One image shows what the camera sees, with a blue quadrilateral. The other image shows just the contents of the blue quadrilateral stretched and cropped into a card-shaped rectangle. Adjust the 8 sliders (top-left corner x&y, top-right corner x&y, etc...) until the the card (including black/white border) takes up exactly the cropped image.
 
 It should look like this.
 
