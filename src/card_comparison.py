@@ -21,7 +21,7 @@ def map_rarity(rarity):
     #
     # Usually you want it to be false so that cards of different rarities are
     # sorted out.
-    DISREGARD_RARITY = True
+    DISREGARD_RARITY = False
     if DISREGARD_RARITY:
         if rarity == 'token':
             return rarity

@@ -581,6 +581,26 @@ If the recognizer doesn't produce reasonable results, it's most likely either th
 
 At this point, everything _should_ be set up and ready to go.
 
+### Optional (highly recommended): Turn on simple sorting
+
+The default sort order is a little complicated (q.v. "Sort Order"). This can make it confusing to test and diagnose the sorting behavior. I highly recommend you turn on "simple alphabetization" for this test. It will make it so that the cards are sorted, simply by their alphabetic name (surprise!), and not by anything else.
+
+Open up `card_comparison.py` and change the line:
+
+```
+SIMPLY_ALPHABETIZE = False
+```
+
+to:
+
+```
+SIMPLY_ALPHABETIZE = True
+```
+
+Don't forget to change it back after you've tested the sorter.
+
+### Run the sorter
+
 Run `sorter.py` from the command line and follow the instructions.
 
 Start with a small test batch (5-10 cards) to make sure it's reasonable.
@@ -588,6 +608,22 @@ Start with a small test batch (5-10 cards) to make sure it's reasonable.
 # Celebrate
 
 If you've made it this far, please share your experience at https://reddit.com/r/open_sorts
+
+# Technical explanations
+
+## Sort Order
+
+The order that cards are sorted in is defined in `card_comparison.py`. The default behavior is:
+
+1.  Cards are separated by 'Basic Land', 'Token', or rarity (common, uncommon, rare, mythic, etc).
+1.  Basic Lands are alphabetized by card name, then artist name, artwork, full-art, and then set.
+1.  Tokens are sorted by color category (color, colorless, artifact or multicolored), name, artist, illustration, full-art, and then set.
+1.  Spells are sorted by rarity, color category (color, colorless, artifact or multicolored), name, full-art, artist, illustration, and then set.
+
+`card_comparison.py` contains two values that can be changed to change the sorting behavior.
+
+*   `DISREGARD_RARITY`: When set to `True`, spells will not be split by rarity. Spells of all rarities will be grouped together, but the sorting will otherwise be the same.
+*   `SIMPLY_ALPHABETIZE`: When set to `True`, the card order will be simple alphabetization by card name.
 
 # Future roadmap
 
@@ -602,3 +638,4 @@ Here's a list of ideas, in no particular order, that would be great improvements
 *   Create a taller version that supports more cards in the input and output baskets.
 *   Improve the UI.
 *   Improve the documentation.
+*   Add support for foreign cards.

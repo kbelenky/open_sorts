@@ -25,7 +25,7 @@ import prof_timer
 import common
 
 
-def sort_cards(device, sorter):
+def sort_cards_from_hopper(device, sorter):
     card_count = 0
     while not device.is_hopper_empty():
         card_id = device.identify_next()
@@ -47,12 +47,15 @@ config = common.load_config()
 
 print('Loading catalog')
 catalog, cards_by_id = common.load_catalog()
+
+input('Load the hopper and press \'Enter\' to continue.')
+
 print('Connecting to device')
 device = arduino_device.Sorter(config, catalog, cards_by_id)
 device.print()
 
 sorter = sort_cards.FirstPassSorter(cards_by_id)
-card_count = sort_cards(device, sorter)
+card_count = sort_cards_from_hopper(device, sorter)
 device.print()
 print(f'Total cards: {card_count}')
 
@@ -61,7 +64,7 @@ sorter.print_pivots()
 while not sorter.is_sorted():
     device.reload()
     sorter.print_pivots()
-    sort_cards(device, sorter)
+    sort_cards_from_hopper(device, sorter)
     device.print()
     sorter.reload_hopper()
 
