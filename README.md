@@ -475,7 +475,17 @@ Place the Arduino and Breadboard in their spots at the bottom of the machine.
 
 At this point, the machine should be physically set up and should look like this:
 
-INSERT IMAGE HERE
+_Note: There are some differences between my build and the one in the design. Most notably, I used an L Motor and gearing instead of an XL Motor for the tray. On the whole, the design in the BrickLink file should be as good or better than the one I built._
+
+![Completed Build](images/completed_build1.jpg)
+![Completed Build](images/completed_build2.jpg)
+![Completed Build](images/completed_build3.jpg)
+
+It just needs one final touch.
+
+I have found that my overhead lights reflect off the back surface of the close-focus lens and back into the camera, creating smears of glare. A cardboard deckbox provides a a simple solution to this:
+
+![How to fix glare](images/glare_fix.jpg)
 
 # Getting the software set up
 
@@ -498,7 +508,13 @@ INSERT IMAGE HERE
 1.  Remove the Hopper Weight if it is in the hopper.
 1.  Place a stack of cards face-up in the hopper, with the card backs facing down. The recognizer should work with the cards in either orientation so long as the face is up (for DFCs, the recognizer will recognize the back face, and sort the card according to the properties of the back face).
 1.  Place the Hopper Weight on top of the stack of cards with the smooth side down.
-1.  Lift the primary hopper arm, just for a moment, so that the cards can settle onto the drive wheel. (INSERT VIDEO LINK)
+1.  Lift the primary hopper arm, just for a moment, so that the cards can settle onto the drive wheel.
+
+<figure class="video_container">
+  <video controls="true" allowfullscreen="true" poster="images/hopper_reload.jpg">
+    <source src="images/hopper_reload.mp4" type="video/mp4">
+  </video>
+</figure>
 
 When reloading the hopper from the sorting baskets, always put the contents of the left basket into the hopper first, followed by the right basket. This is a critical step in the sorting process.
 
