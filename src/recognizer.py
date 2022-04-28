@@ -33,10 +33,7 @@ transform_vector = transform.keypoints_to_transform(640, 448,
                                                     *config.camera_keypoints)
 
 print('Loading catalog')
-json_file = open(
-    "e:/Users/Kennet/Scratch/LightningGreaves/MtgJson/denormalized.json",
-    "r",
-    encoding="utf-8")
+json_file = open("card_catalog.json", "r", encoding="utf-8")
 catalog = json.load(json_file)
 card_lookup = dict()
 for card in catalog:
