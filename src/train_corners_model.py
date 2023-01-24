@@ -123,3 +123,7 @@ history = model.fit(list_ds,
                     steps_per_epoch=300)
 
 model.save('models/corners.model')
+converter = tf.lite.TFLiteConverter.from_saved_model('models/corners.model')
+tflite_model = converter.convert()
+with open('corners.tflite', 'wb') as f:
+    f.write(tflite_model)
