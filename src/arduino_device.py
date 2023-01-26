@@ -26,15 +26,15 @@ import card_recognizer
 import transform
 import prof_timer
 import common
+import thumbnailer
 
 
 class Sorter:
     """Provides an interface to the Arduino and camera hardware."""
+
     def __init__(self, config, catalog, card_lookup):
         config = config
-        # Generate the vector used for the perspective transform.
-        self.transform_vector = transform.keypoints_to_transform(
-            640, 448, *config.camera_keypoints)
+        self.thumbnailer = thumbnailer.Thumbnailer()
         self.card_lookup = card_lookup
         print('Initializing recognizer.')
         self.recognizer = card_recognizer.Recognizer(catalog)
@@ -47,6 +47,7 @@ class Sorter:
             self.vc = cv2.VideoCapture(config.camera_id, cv2.CAP_DSHOW)
         else:
             self.vc = cv2.VideoCapture(config.camera_id)
+        self.vc.set(cv2.CAP_PROP_BUFFERSIZE, 1)
         self.vc.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
         self.vc.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
@@ -65,8 +66,8 @@ class Sorter:
     def get_camera_image(self):
         # For reasons I haven't diagnosed, the camera seems to lag very far
         # behind reality. Through experimentation I've found that I have to
-        # wait for the 6th frame for things to have settled down.
-        for i in range(6):
+        # wait for the 5th frame for things to have settled down.
+        for i in range(5):
             rval, frame = self.vc.read()
             if not rval:
                 print('Error code on frame capture.')
@@ -75,12 +76,7 @@ class Sorter:
         # The image comes from the camera in BGR byte order and we need it
         # in RGB.
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        # Perform the perspective transform.
-        image = tfa.image.transform(frame,
-                                    self.transform_vector,
-                                    interpolation='bilinear',
-                                    fill_value=255,
-                                    output_shape=(448, 640))
+        image = self.thumbnailer.thumbnail(frame)
         # I'm not sure if brightness and contrast adjustment is needed.
         # Further experiments are needed to determine if this helps recognition
         # accuracy.
@@ -90,17 +86,18 @@ class Sorter:
         # The camera is mounted so the images come in sideways. Rotate them 90
         # degrees.
         image = tf.image.rot90(image, k=1)
-        return image
+        return (image, frame)
 
     def identify_next(self):
         common.send_command(self.serial_port, 'next_card')
         # The Arduino sends its "done" reply when the tray sensors have been
         # triggered, but the card will still be in motion for a little while.
         time.sleep(.3)
-        image = self.get_camera_image()
+        image, frame = self.get_camera_image()
         with prof_timer.PerfTimer('recognize'):
             card_id, distance = self.recognizer.recognize(image)
-        return card_id
+        return card_id, tf.image.convert_image_dtype(
+            image, tf.uint8), tf.image.convert_image_dtype(frame, tf.uint8)
 
     def send_left(self):
         common.send_command(self.serial_port, 'send_left')
