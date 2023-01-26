@@ -18,6 +18,7 @@ import cv2
 import pygame
 import numpy as np
 import sys
+import platform
 import uuid
 
 import tensorflow as tf
@@ -25,9 +26,9 @@ import tensorflow_addons as tfa
 import transform
 
 from pygame import display
-import corner_dataset
 import card_recognizer
 import common
+import thumbnailer
 
 
 def cvimage_to_pygame(image):
@@ -35,23 +36,28 @@ def cvimage_to_pygame(image):
     return pygame.image.frombuffer(image.tobytes(), image.shape[1::-1], "RGB")
 
 
+print('Loading config')
+config = common.load_config()
 print('Loading catalog')
 catalog, cards_by_id = common.load_catalog()
 print('Initializing recognizer.')
 recognizer = card_recognizer.Recognizer(catalog)
 
-print('Initializing model.')
-interpreter = tf.lite.Interpreter(model_path='corners.tflite')
-interpreter.allocate_tensors()
-input_details = interpreter.get_input_details()[0]
-output_details = interpreter.get_output_details()[0]
+print('Initializing Corner Detector.')
+corner_detector = thumbnailer.Thumbnailer()
 
 pygame.init()
 
 surface = display.set_mode(size=(1280, 720))
 
-print('Creatingcamera.')
-vc = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+print('Creating camera.')
+if platform.system() == 'Windows':
+    # On Windows, the DirectShow interface seems to be faster and
+    # more reliable
+    print('Using DirectShow')
+    vc = cv2.VideoCapture(config.camera_id, cv2.CAP_DSHOW)
+else:
+    vc = cv2.VideoCapture(config.camera_id)
 vc.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 vc.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 vc.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
@@ -64,44 +70,27 @@ font = pygame.font.Font(pygame.font.get_default_font(), 32)
 
 running = True
 while running:
+    # Grab the next frame.
     rval, frame = vc.read()
     if not rval:
         print('Error code on frame capture.')
         running = False
         continue
+    # Convert the frame to the RGB color space.
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     # Model processing
-    input_image = frame.copy()
-    input_image = cv2.resize(input_image, (320, 192),
-                             interpolation=cv2.INTER_AREA)
-    input_image = np.expand_dims(input_image, axis=0).astype(np.single)
-    input_image = (input_image * 2 / 255) - 1
-    interpreter.set_tensor(input_details['index'], input_image)
-    interpreter.invoke()
-    heatmap = interpreter.get_tensor(output_details["index"])[0]
-    corners = corner_dataset.heatmap_to_corners((192, 320), heatmap)
-    corners[0][0] = corners[0][0] * 1280 / 320
-    corners[1][0] = corners[1][0] * 1280 / 320
-    corners[2][0] = corners[2][0] * 1280 / 320
-    corners[3][0] = corners[3][0] * 1280 / 320
-    corners[0][1] = corners[0][1] * 720 / 192
-    corners[1][1] = corners[1][1] * 720 / 192
-    corners[2][1] = corners[2][1] * 720 / 192
-    corners[3][1] = corners[3][1] * 720 / 192
+    cropped, corners = corner_detector.thumbnail(frame)
 
-    transform_vector = transform.keypoints_to_transform(
-        640, 448, *corners[[0, 1, 3, 2]])
-    cropped = tfa.image.transform(frame,
-                                  transform_vector,
-                                  interpolation='bilinear',
-                                  fill_value=255,
-                                  output_shape=(448, 640))
     cropped = tf.image.rot90(cropped, k=1)
     cropped = tf.image.convert_image_dtype(cropped, tf.float32)
     card_id, distance = recognizer.recognize(cropped)
-    card_text = f'{cards_by_id[card_id]["name"]}[{cards_by_id[card_id]["set"]}] : {distance:.2f}'
+    card_text = (
+        f'{cards_by_id[card_id]["name"]}[{cards_by_id[card_id]["set"]}]' +
+        f' : {distance:.2f}')
     print(card_text)
+
+    # Render the bounding quad and recognition info.
     text_surface = font.render(card_text, True, (255, 255, 255))
     text_rect = text_surface.get_rect()
     text_rect.center = (
@@ -121,6 +110,8 @@ while running:
 
     display.update()
 
+    # If the space bar was hit, then save the frame to the "scans"
+    # directory for later tagging.
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
