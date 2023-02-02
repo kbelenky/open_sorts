@@ -76,7 +76,7 @@ class Sorter:
         # The image comes from the camera in BGR byte order and we need it
         # in RGB.
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image = self.thumbnailer.thumbnail(frame)
+        image, _ = self.thumbnailer.thumbnail(frame)
         # I'm not sure if brightness and contrast adjustment is needed.
         # Further experiments are needed to determine if this helps recognition
         # accuracy.
